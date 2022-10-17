@@ -19,7 +19,7 @@ const connection = mysql.createConnection({
   host: 'localhost',
   user:'root',
   password:'',
-  database: 'project.js',
+  database: 'test',
   multipleStatements: true
 })
 
@@ -184,7 +184,7 @@ app.delete("/profiling", (req, res) => {
 //motion detector table
 app.get("/motion_table", (req, res) => {
   console.log(req.query);
-  var sql = `CREATE TABLE motiontime (motion_id int NOT NULL AUTO_INCREMENT, stime DATETIME, img BLOB, PRIMARY KEY(motion_id))`
+  var sql = `CREATE TABLE motiontime (motion_id int NOT NULL AUTO_INCREMENT, stime DATETIME, img LONGBLOB, PRIMARY KEY(motion_id))`
   
   connection.query( sql, function (err, results) {
     console.log(results);
@@ -221,7 +221,7 @@ app.post('/motion', (req, res)=> {
     var img = req.body.img;
 
     var sql = `INSERT INTO motiontime (stime, img) VALUES (?, ?) `
-    
+    console.log(img)
     connection.query( sql,
         [
           stime,
